@@ -9,7 +9,7 @@ using System.Collections;
 using System.Linq.Expressions;
 using System.Security.Cryptography.X509Certificates;
 
-internal class Program
+internal class Long_Road
 {
     static void Main()
     {
@@ -22,8 +22,11 @@ internal class Program
         Random rnd = new Random();
         bool isRunning = true;
         while (isRunning)
+
+
+
         {
-            Console.WriteLine("1. Начать игру\n2. Выйти из игры\n 3. информация об игре");
+            Console.WriteLine("1. Начать игру\n2. Выйти из игры\n3. информация об игре");
 
             byte choice;
             if (!byte.TryParse(Console.ReadLine(), out choice) || choice > 2 || choice < 1)
@@ -42,6 +45,10 @@ internal class Program
                     Console.WriteLine("Игра представляет из себя текстовый квест, в котором вы выбираете маршрут и принимаете решения, влияющие на награду в конце пути. В игре есть элементы случайности, которые добавляют непредсказуемости и разнообразия в игровой процесс. Цель игры - достичь цели с максимальной наградой, принимая обдуманные решения и справляясь с неожиданными событиями на пути.");
                     break;
             }
+            
+
+
+
             static void vibor()
             {
                 Console.WriteLine("Выберите маршрут:\n1.соседний лагерь:короткий, и мало оплачиваемый маршрут \n2.пригород:Дорога до пригорода займет больше времени, около 5 дней, но и награда будет больше \n3. бункер военных: Дорога до военного бункера займет около 7 дней, но и награда будет максимальная ");
@@ -56,7 +63,7 @@ internal class Program
                     case 1:
                         Thread.Sleep(1000);
                         Game(2);
-                        
+
                         break;
                     case 2:
                         Thread.Sleep(1000);
@@ -68,6 +75,11 @@ internal class Program
                         break;
                 }
             }
+             //надо еще потом добавить ачивки и сохранение их
+
+
+
+
             static void Game(byte dayz)
             {
                 Random rnd = new Random();
@@ -77,10 +89,10 @@ internal class Program
                 byte rew = 100;
                 byte evch = 0;
                 for (byte day = 1; day <= dayz; day++)
-                    
+
                 {
                     switch (dayz)
-                    
+
                     {
                         case 2:
                             evch = Convert.ToByte(rnd.Next(1, 5));
@@ -90,7 +102,7 @@ internal class Program
                             break;
                         case 7:
                             evch = Convert.ToByte(rnd.Next(5, 11));
-                            break;  
+                            break;
                     }
                     switch (evch)
                     {
@@ -338,7 +350,7 @@ internal class Program
                 }
                 Console.WriteLine($"Вы достигли склада, ваша награда {rew}\n");
             }
-            
+
         }
     }
 }
