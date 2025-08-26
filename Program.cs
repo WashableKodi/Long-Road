@@ -173,7 +173,7 @@ internal class Program
                 int rew = 100;
                 for (int days = 1; days <= 7; days++)
                 {
-                    int evch = rnd.Next(1, 6);
+                    int evch = rnd.Next(1, 11);
 
                     switch (evch)
                     {
@@ -308,7 +308,113 @@ internal class Program
                                 rew -= 30;
                             }
                             break;
-                        
+                        case 6:
+                            Console.WriteLine("Вы нашли заброшенный магазин, осмотреть?\n1.Да\n2.Нет\n");
+                            byte answq;
+                            if (!byte.TryParse(Console.ReadLine(), out answq) || answq > 2 || answq < 1)
+                            {
+                                answq = 1;
+                            }
+                            if (answq == 1)
+                            {
+                                int ev = rnd.Next(1, 3);
+                                if (ev == 1)
+                                {
+                                    Console.WriteLine("В магазине вы нашли немного еды и медикаментов, награда увеличена\n");
+                                    rew += 15;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("В магазине была ловушка, часть груза потеряна\n");
+                                    rew -= 10;
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Вы проехали мимо магазина\n");
+                            }
+                            break;
+                        case 7:
+                            Console.WriteLine("Вы поймали странный сигнал по радио, последовать за сигалом? \n1.Да\n2.Нет\n");
+                            byte answe;
+                            if (!byte.TryParse(Console.ReadLine(), out answe) || answe > 2 || answe < 1) { }
+                            {
+                                answe = 1;
+                            }
+                            if (answe == 1)
+                            {
+                                int ev = rnd.Next(1, 3);
+                                if (ev == 1)
+                                {
+                                    Console.WriteLine("Сигнал привел вас к группе выживших, они поделились с вами провизией, награда увеличена\n");
+                                    rew += 15;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Сигнал был ловушкой, и на вас напали рейдеры, часть груза потеряна\n");
+                                    rew -= 10;
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Вы проигнорировали сигнал\n");
+                            }
+                            break;
+                        case 8:
+                            System.Console.WriteLine("День прошел спокойно, вы не встретили ничего необычного\n");
+                            break;
+                        case 9:
+                            System.Console.WriteLine("Вы нашли бункер, осмотреть?\n1.Да\n2.Нет\n");
+                            byte answz;
+                            if (!byte.TryParse(Console.ReadLine(), out answz) || answz > 2 || answz < 1)
+                            {
+                                answz = 1;
+                            }
+                            if (answz == 1)
+                            {
+                                int ev = rnd.Next(1, 3);
+                                if (ev == 1)
+                                {
+                                    Console.WriteLine("В бункере вы нашли немного еды и медикаментов, награда увеличена\n");
+                                    rew += 15;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("В бункере была ловушка, часть груза потеряна\n");
+                                    rew -= 10;
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Вы проехали мимо бункера\n");
+                            }
+                            break;
+                        case 10: 
+                        System.Console.WriteLine("Вы увидели вдалеке дым, проверить?\n1.Да\n2.Нет\n");
+                            byte answqz;
+                            if (!byte.TryParse(Console.ReadLine(), out answqz) || answqz > 2 || answqz < 1)
+                            {
+                                answqz = 1;
+                            }
+                            if (answqz == 1)
+                            {
+                                int ev = rnd.Next(1, 3);
+                                if (ev == 1)
+                                {
+                                    Console.WriteLine("Вы нашли группу выживших, они поделились с вами провизией, награда увеличена\n");
+                                    rew += 15;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Вы нашли группу выживших, сначала они казались дружелюбными, но потом напали\n");
+                                    rew -= 10;
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Вы проигнорировали дым\n");
+                            }
+                            break;
                     }
                     Console.WriteLine($"Сейчас ваша награда составляет {rew}, наступает следующий день\n");
                     Thread.Sleep(2000);
