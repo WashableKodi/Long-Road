@@ -15,3 +15,4 @@ C:\Users\коди\Documents\obj\CsharpProjects\TestProject\obj\Debug\net9.0\ref\
 C:\Users\коди\Documents\obj\CsharpProjects\TestProject\bin\Debug\net9.0\Newtonsoft.Json.dll
 C:\Users\коди\Documents\obj\CsharpProjects\TestProject\obj\Debug\net9.0\TestProject.csproj.AssemblyReference.cache
 C:\Users\коди\Documents\obj\CsharpProjects\TestProject\obj\Debug\net9.0\TestProj.121896E9.Up2Date
+C:\Users\коди\Documents\obj\CsharpProjects\TestProject\obj\Debug\net9.0\TestProject.sourcelink.json

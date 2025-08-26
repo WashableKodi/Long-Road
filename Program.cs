@@ -15,12 +15,12 @@ internal class Program
     {
         bool isadm = false;
         string? name = "";
-        Console.WriteLine("██╗  ██╗███╗   ███╗██╗███╗   ██╗██╗ ██████╗ ███████╗");
-        Console.WriteLine("██║ ██╔╝████╗ ████║██║████╗  ██║██║██╔═══██╗██╔════╝");
-        Console.WriteLine("█████╔╝ ██╔████╔██║██║██╔██╗ ██║██║██║   ██║███████╗");
-        Console.WriteLine("██╔═██╗ ██║╚██╔╝██║██║██║╚██╗██║██║██║   ██║╚════██║");
-        Console.WriteLine("██║  ██╗██║ ╚═╝ ██║██║██║ ╚████║██║╚██████╔╝███████║");
-        Console.WriteLine("╚═╝  ╚═╝╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝ ╚═════╝ ╚══════╝ ver 0.4");
+        Console.WriteLine("                 ██╗  ██╗███╗   ███╗██╗███╗   ██╗██╗ ██████╗ ███████╗");
+        Console.WriteLine("                 ██║ ██╔╝████╗ ████║██║████╗  ██║██║██╔═══██╗██╔════╝");
+        Console.WriteLine("                 █████╔╝ ██╔████╔██║██║██╔██╗ ██║██║██║   ██║███████╗");
+        Console.WriteLine("                 ██╔═██╗ ██║╚██╔╝██║██║██║╚██╗██║██║██║   ██║╚════██║");
+        Console.WriteLine("                 ██║  ██╗██║ ╚═╝ ██║██║██║ ╚████║██║╚██████╔╝███████║");
+        Console.WriteLine("                 ╚═╝  ╚═╝╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝ ╚═════╝ ╚══════╝ ver 0.4");
         Console.WriteLine($"Здравствуйте,выберите пользователя:\n 1.User \n 2.admin");
         byte rul;
         if (!byte.TryParse(Console.ReadLine(), out rul) || rul > 2 || rul < 0 )
@@ -42,7 +42,7 @@ internal class Program
                 isadm = false;
                 name = "User";
                 System.Console.WriteLine("неправильный пароль, применяется протокол защиты");
-                for (int i = 0; i <= 10;)
+                for (byte i = 0; i <= 10;)
                 {
                     Console.Write("=");
                     Thread.Sleep(200);
@@ -69,12 +69,8 @@ internal class Program
             string? input = Console.ReadLine();
             switch (input)
             {
-                case "random":
-                    Console.WriteLine($"\n{randomNumber}\n");
-                    break;
-
                 case "info":
-                    Console.WriteLine("\nCodiMiniOS\nversion 0.4\n");
+                    Console.WriteLine("\nExpedition Game\nversion 0.4\n");
                     break;
 
                 case "exit":
@@ -87,79 +83,14 @@ internal class Program
                     Console.WriteLine("info - информация о системе");
                     Console.WriteLine("brut - тест подбора числа, показывает число попыток");
                     Console.WriteLine("calc - калькулятор");
-                    if (isadm)
-                    {
-                        System.Console.WriteLine("sys info - информация о системе");
-                    }
+                    Console.WriteLine("play - начать игру");    
                     break;
 
-                case "brut":
-                    Console.WriteLine("Напишите число от 1000 до 9999");
-                    if (int.TryParse(Console.ReadLine(), out int targetNumber) && targetNumber >= 1000 && targetNumber <= 9999)
-                    {
-                        int attempts = 0;
-                        int guess;
-                        do
-                        {
-                            guess = rnd.Next(1000, 9999);
-                            attempts++;
-                        } while (guess != targetNumber);
-                        Console.WriteLine($"Ваше число было подобрано с {attempts} попытки");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Некорректный ввод!");
-                    }
-                    break;
-
-                case "calc":
-                    System.Console.WriteLine("введите 1 число");
-                    int x;
-                    if (!int.TryParse(Console.ReadLine(), out x))
-                    {x = 0;}
-                    System.Console.WriteLine("Введите знак( + - * / )");
-                    string? z = Console.ReadLine();
-                    if (z != "+" && z != "-" && z != "*" && z != "/" || z == null)
-                    {z = "+";}
-                    int y;
-                    System.Console.WriteLine("Введите 2 число");
-                    if (!int.TryParse(Console.ReadLine(), out y))
-                    { y = 0; }
-                    calculator(x, z, y);
-                    break;
-
-                case "sys inf":
-                    switch (isadm)
-                    {
-                        case true:
-                            Console.WriteLine("Операционная система: " + Environment.OSVersion);
-                            Console.WriteLine("Пользователь: " + Environment.UserName);
-                            System.Console.WriteLine("желаете сохранить? 1 - да, 2 - нет");
-                            byte soroq;
-                            if (!byte.TryParse(Console.ReadLine(), out soroq))
-                            {
-                                soroq = 2;
-                            }
-                            switch (soroq)
-                            {
-                                case 1:
-                                    string content = $"ОС: {Environment.OSVersion}\n Пользователь: {Environment.UserName}";
-                                    File.WriteAllText("sysinf.txt", content);
-                                    System.Console.WriteLine("сохранение произведено");
-                                    break;
-                                case 2:
-                                    System.Console.WriteLine("сохрание отменено");
-                                    break;
-                            }
-                            break;
-                        case false:
-                            Console.WriteLine("У вас недостаточно прав");
-                            break;
-                    }
-                    break;
-
-                case "minigame":
+                case "play":
                     Game();
+                    break;
+                default:
+                    Console.WriteLine("\nНеизвестная команда, введите help для списка команд\n");
                     break;
 
             }
@@ -170,7 +101,7 @@ internal class Program
                 Thread.Sleep(1000);
                 Console.WriteLine("Ваша цель - доехать до склада, для этого вам надо пройти 7 дней. Каждый день происходит событие с выбором. По итогу вы получите награду.\nПомните, всегда будьте осторожны!\n");
                 Thread.Sleep(1000);
-                int rew = 100;
+                byte rew = 100;
                 for (int days = 1; days <= 7; days++)
                 {
                     int evch = rnd.Next(1, 11);
@@ -238,7 +169,7 @@ internal class Program
                             }
                             if (anse == 2)
                             {
-                                int e = rnd.Next(1, 3);
+                                byte e = Convert.ToByte(rnd.Next(1, 3));
                                 if (e == 1)
                                 {
                                     Console.WriteLine("В тумане ничего не было, и вы проехали без проблем\n");
@@ -290,7 +221,7 @@ internal class Program
 
                             if (an == 1)
                             {
-                                int pv = rnd.Next(1, 3);
+                                byte pv = Convert.ToByte(rnd.Next(1, 3));
                                 if (pv == 1)
                                 {
                                     Console.WriteLine("Вы смогли отбиться от рейдеров и взять часть их вещей\n");
@@ -421,30 +352,6 @@ internal class Program
                 }
                 Console.WriteLine($"Вы достигли склада, ваша награда {rew}\n");
             }
-            static void calculator(int x, string z , int y)
-            {
-                int rezz = 0;
-                switch (z)
-                {
-                    case "+":
-                        rezz = x + y;
-                        break;
-                    case "-":
-                        rezz = x - y;
-                        break;
-                    case "*":
-                        rezz = x * y;
-                        break;
-                    case "/":
-                        rezz = x / y;
-                        break;
-                    default:
-                        System.Console.WriteLine("неизвестный оператор");
-                        break;
-
-                }
-                System.Console.WriteLine($"ответ: {rezz}");
-                }
             
         }
     }
