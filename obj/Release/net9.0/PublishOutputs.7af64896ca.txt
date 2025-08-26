@@ -1,0 +1,6 @@
+C:\Users\коди\Documents\obj\CsharpProjects\TestProject\bin\Release\net9.0\publish\TestProject.exe
+C:\Users\коди\Documents\obj\CsharpProjects\TestProject\bin\Release\net9.0\publish\TestProject.dll
+C:\Users\коди\Documents\obj\CsharpProjects\TestProject\bin\Release\net9.0\publish\TestProject.deps.json
+C:\Users\коди\Documents\obj\CsharpProjects\TestProject\bin\Release\net9.0\publish\TestProject.runtimeconfig.json
+C:\Users\коди\Documents\obj\CsharpProjects\TestProject\bin\Release\net9.0\publish\TestProject.pdb
+C:\Users\коди\Documents\obj\CsharpProjects\TestProject\bin\Release\net9.0\publish\Newtonsoft.Json.dll
