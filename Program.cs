@@ -13,102 +13,88 @@ internal class Program
 {
     static void Main()
     {
-        bool isadm = false;
-        string? name = "";
-        Console.WriteLine("                 ██╗  ██╗███╗   ███╗██╗███╗   ██╗██╗ ██████╗ ███████╗");
-        Console.WriteLine("                 ██║ ██╔╝████╗ ████║██║████╗  ██║██║██╔═══██╗██╔════╝");
-        Console.WriteLine("                 █████╔╝ ██╔████╔██║██║██╔██╗ ██║██║██║   ██║███████╗");
-        Console.WriteLine("                 ██╔═██╗ ██║╚██╔╝██║██║██║╚██╗██║██║██║   ██║╚════██║");
-        Console.WriteLine("                 ██║  ██╗██║ ╚═╝ ██║██║██║ ╚████║██║╚██████╔╝███████║");
-        Console.WriteLine("                 ╚═╝  ╚═╝╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚═╝ ╚═════╝ ╚══════╝ ver 0.4");
-        Console.WriteLine($"Здравствуйте,выберите пользователя:\n 1.User \n 2.admin");
-        byte rul;
-        if (!byte.TryParse(Console.ReadLine(), out rul) || rul > 2 || rul < 0 )
-        {
-            System.Console.WriteLine("Неизвестная роль, применины права пользователя");
-            rul = 1; 
-        }
-        if (rul == 2)
-        {
-            Console.WriteLine("введите пароль:");
-            string? pass = Console.ReadLine();
-            if (pass == "2396")
-            {
-                isadm = true;
-                name = "admin";
-            }
-            else
-            {
-                isadm = false;
-                name = "User";
-                System.Console.WriteLine("неправильный пароль, применяется протокол защиты");
-                for (byte i = 0; i <= 10;)
-                {
-                    Console.Write("=");
-                    Thread.Sleep(200);
-                    i++;
-                }
-                Process.Start("shutdown", "/r /t 0");
-            }
-        }
-        if (rul == 1)
-        {
-            name = "User";
-        }
-        if (rul != 2 && rul != 1)
-        {
-            name = "User";
-        }
-
+        Console.WriteLine("██╗      ██████╗ ███╗   ██╗ ██████╗     ██████╗  ██████╗  █████╗ ██████╗ ");
+        Console.WriteLine("██║     ██╔═══██╗████╗  ██║██╔════╝     ██╔══██╗██╔═══██╗██╔══██╗██╔══██╗");
+        Console.WriteLine("██║     ██║   ██║██╔██╗ ██║██║  ███╗    ██████╔╝██║   ██║███████║██║  ██║");
+        Console.WriteLine("██║     ██║   ██║██║╚██╗██║██║   ██║    ██╔══██╗██║   ██║██╔══██║██║  ██║");
+        Console.WriteLine("███████╗╚██████╔╝██║ ╚████║╚██████╔╝    ██║  ██║╚██████╔╝██║  ██║██████╔╝");
+        Console.WriteLine("╚══════╝ ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═════╝ ");
         Random rnd = new Random();
-        System.Console.WriteLine($"добро пожаловать, {name}");
         bool isRunning = true;
         while (isRunning)
         {
-            int randomNumber = rnd.Next(1, 6);
-            string? input = Console.ReadLine();
-            switch (input)
-            {
-                case "info":
-                    Console.WriteLine("\nExpedition Game\nversion 0.4\n");
-                    break;
+            Console.WriteLine("1. Начать игру\n2. Выйти из игры\n 3. информация об игре");
 
-                case "exit":
+            byte choice;
+            if (!byte.TryParse(Console.ReadLine(), out choice) || choice > 2 || choice < 1)
+            {
+                choice = 2;     
+            }
+            switch (choice)
+            {
+                case 1:
+                    vibor();
+                    break;
+                case 2:
                     isRunning = false;
                     break;
-
-                case "help":
-                    Console.WriteLine("\nexit - выход");
-                    Console.WriteLine("random - случайное число от 1 до 6");
-                    Console.WriteLine("info - информация о системе");
-                    Console.WriteLine("brut - тест подбора числа, показывает число попыток");
-                    Console.WriteLine("calc - калькулятор");
-                    Console.WriteLine("play - начать игру");    
+                case 3:
+                    Console.WriteLine("Игра представляет из себя текстовый квест, в котором вы выбираете маршрут и принимаете решения, влияющие на награду в конце пути. В игре есть элементы случайности, которые добавляют непредсказуемости и разнообразия в игровой процесс. Цель игры - достичь цели с максимальной наградой, принимая обдуманные решения и справляясь с неожиданными событиями на пути.");
                     break;
-
-                case "play":
-                    Game();
-                    break;
-                default:
-                    Console.WriteLine("\nНеизвестная команда, введите help для списка команд\n");
-                    break;
-
             }
-            static void Game()
+            static void vibor()
+            {
+                Console.WriteLine("Выберите маршрут:\n1.соседний лагерь:короткий, и мало оплачиваемый маршрут \n2.пригород:Дорога до пригорода займет больше времени, около 5 дней, но и награда будет больше \n3. бункер военных: Дорога до военного бункера займет около 7 дней, но и награда будет максимальная ");
+                byte dif;
+                byte days = 0;
+                if (!byte.TryParse(Console.ReadLine(), out dif) || dif > 3 || dif < 1)
+                {
+                    dif = 2;
+                }
+                switch (dif)
+                {
+                    case 1:
+                        Thread.Sleep(1000);
+                        Game(2);
+                        
+                        break;
+                    case 2:
+                        Thread.Sleep(1000);
+                        Game(5);
+                        break;
+                    case 3:
+                        Thread.Sleep(1000);
+                        Game(7);
+                        break;
+                }
+            }
+            static void Game(byte dayz)
             {
                 Random rnd = new Random();
-                Console.WriteLine("Экспедиция");
                 Thread.Sleep(1000);
-                Console.WriteLine("Ваша цель - доехать до склада, для этого вам надо пройти 7 дней. Каждый день происходит событие с выбором. По итогу вы получите награду.\nПомните, всегда будьте осторожны!\n");
+                Console.WriteLine("Помните, всегда будьте осторожны!\n");
                 Thread.Sleep(1000);
                 byte rew = 100;
-                for (int days = 1; days <= 7; days++)
+                byte evch = 0;
+                for (byte day = 1; day <= dayz; day++)
+                    
                 {
-                    int evch = rnd.Next(1, 11);
-
+                    switch (dayz)
+                    
+                    {
+                        case 2:
+                            evch = Convert.ToByte(rnd.Next(1, 5));
+                            break;
+                        case 5:
+                            evch = Convert.ToByte(rnd.Next(3, 7));
+                            break;
+                        case 7:
+                            evch = Convert.ToByte(rnd.Next(5, 11));
+                            break;  
+                    }
                     switch (evch)
                     {
-                        case 1:
+                        case 4:
                             Console.WriteLine("Найден пустой лагерь, осмотреть?\n1.Да\n2.Нет\n");
                             byte ans;
                             if (!byte.TryParse(Console.ReadLine(), out ans) || ans > 2 || ans < 0)
@@ -134,7 +120,7 @@ internal class Program
                                 Console.WriteLine("Вы проехали лагерь\n");
                             }
                             break;
-                        case 2:
+                        case 7:
                             Console.WriteLine("Вы слышите выстрелы, проверить?\n1.Да\n2.Нет\n");
                             byte answ;
                             if (!byte.TryParse(Console.ReadLine(), out answ) || answ > 2 || answ < 0)
@@ -160,7 +146,7 @@ internal class Program
                                 Console.WriteLine("Вы проехали мимо\n");
                             }
                             break;
-                        case 3:
+                        case 2:
                             Console.WriteLine("Впереди густой туман, объехать?\n1.Да\n2.Нет\n");
                             byte anse;
                             if (!byte.TryParse(Console.ReadLine(), out anse) || anse > 2 || anse < 1)
@@ -185,7 +171,7 @@ internal class Program
                                 Console.WriteLine("Вы объехали туман\n");
                             }
                             break;
-                        case 4:
+                        case 5:
                             Console.WriteLine("Вы видите несколько раненых военных, помочь?\n1.Да\n2.Нет\n");
                             byte ansr;
                             if (!byte.TryParse(Console.ReadLine(), out ansr) || ansr > 2 || ansr < 1)
@@ -211,7 +197,7 @@ internal class Program
                                 Console.WriteLine("Вы оставили военных\n");
                             }
                             break;
-                        case 5:
+                        case 9:
                             Console.WriteLine("Засада рейдеров! Дать отпор?\n1.Да\n2.Нет\n");
                             byte an;
                             if (!byte.TryParse(Console.ReadLine(), out an) || an > 2 || an < 1)
@@ -239,7 +225,7 @@ internal class Program
                                 rew -= 30;
                             }
                             break;
-                        case 6:
+                        case 3:
                             Console.WriteLine("Вы нашли заброшенный магазин, осмотреть?\n1.Да\n2.Нет\n");
                             byte answq;
                             if (!byte.TryParse(Console.ReadLine(), out answq) || answq > 2 || answq < 1)
@@ -265,7 +251,7 @@ internal class Program
                                 Console.WriteLine("Вы проехали мимо магазина\n");
                             }
                             break;
-                        case 7:
+                        case 6:
                             Console.WriteLine("Вы поймали странный сигнал по радио, последовать за сигалом? \n1.Да\n2.Нет\n");
                             byte answe;
                             if (!byte.TryParse(Console.ReadLine(), out answe) || answe > 2 || answe < 1) { }
@@ -291,11 +277,11 @@ internal class Program
                                 Console.WriteLine("Вы проигнорировали сигнал\n");
                             }
                             break;
-                        case 8:
+                        case 1:
                             System.Console.WriteLine("День прошел спокойно, вы не встретили ничего необычного\n");
                             break;
-                        case 9:
-                            System.Console.WriteLine("Вы нашли бункер, осмотреть?\n1.Да\n2.Нет\n");
+                        case 10:
+                            System.Console.WriteLine("Вы нашли военный бункер, осмотреть?\n1.Да\n2.Нет\n");
                             byte answz;
                             if (!byte.TryParse(Console.ReadLine(), out answz) || answz > 2 || answz < 1)
                             {
@@ -306,7 +292,7 @@ internal class Program
                                 int ev = rnd.Next(1, 3);
                                 if (ev == 1)
                                 {
-                                    Console.WriteLine("В бункере вы нашли немного еды и медикаментов, награда увеличена\n");
+                                    Console.WriteLine("В бункере вы нашли остатки снаряжения и медикаментов, награда увеличена\n");
                                     rew += 15;
                                 }
                                 else
@@ -320,8 +306,8 @@ internal class Program
                                 Console.WriteLine("Вы проехали мимо бункера\n");
                             }
                             break;
-                        case 10: 
-                        System.Console.WriteLine("Вы увидели вдалеке дым, проверить?\n1.Да\n2.Нет\n");
+                        case 8:
+                            System.Console.WriteLine("Вы увидели вдалеке дым, проверить?\n1.Да\n2.Нет\n");
                             byte answqz;
                             if (!byte.TryParse(Console.ReadLine(), out answqz) || answqz > 2 || answqz < 1)
                             {
