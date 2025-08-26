@@ -308,6 +308,7 @@ internal class Program
                                 rew -= 30;
                             }
                             break;
+                        
                     }
                     Console.WriteLine($"Сейчас ваша награда составляет {rew}, наступает следующий день\n");
                     Thread.Sleep(2000);
