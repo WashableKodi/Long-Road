@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 using System.Collections;
 using System.Linq.Expressions;
 using System.Security.Cryptography.X509Certificates;
-
+using System.Text.Json;
 internal class Long_Road
 {
     static void Main()
@@ -22,16 +22,13 @@ internal class Long_Road
         Random rnd = new Random();
         bool isRunning = true;
         while (isRunning)
-
-
-
         {
             Console.WriteLine("1. Начать игру\n2. Выйти из игры\n3. информация об игре");
 
             sbyte choice;
             if (!sbyte.TryParse(Console.ReadLine(), out choice) || choice > 2 || choice < 1)
             {
-                choice = 2;     
+                choice = 2;
             }
             switch (choice)
             {
@@ -45,7 +42,7 @@ internal class Long_Road
                     Console.WriteLine("Игра представляет из себя текстовый квест, в котором вы выбираете маршрут и принимаете решения, влияющие на награду в конце пути. В игре есть элементы случайности, которые добавляют непредсказуемости и разнообразия в игровой процесс. Цель игры - достичь цели с максимальной наградой, принимая обдуманные решения и справляясь с неожиданными событиями на пути.");
                     break;
             }
-            
+
 
 
 
@@ -75,13 +72,13 @@ internal class Long_Road
                         break;
                 }
             }
-             //надо еще потом добавить ачивки и сохранение их
 
 
 
 
             static void Game(byte dayz)
             {
+                var Achievements = AchievementManager.Read();
                 Random rnd = new Random();
                 Thread.Sleep(1000);
                 Console.WriteLine("Помните, всегда будьте осторожны!\n");
@@ -192,6 +189,7 @@ internal class Long_Road
                             }
                             if (ansr == 1)
                             {
+                                Achievements.E++;
                                 int ve = rnd.Next(1, 3);
                                 if (ve == 1)
                                 {
@@ -219,6 +217,7 @@ internal class Long_Road
 
                             if (an == 1)
                             {
+                                Achievements.B++;
                                 byte pv = Convert.ToByte(rnd.Next(1, 3));
                                 if (pv == 1)
                                 {
@@ -246,6 +245,7 @@ internal class Long_Road
                             }
                             if (answq == 1)
                             {
+                                Achievements.C++;
                                 int ev = rnd.Next(1, 3);
                                 if (ev == 1)
                                 {
@@ -277,6 +277,7 @@ internal class Long_Road
                                 {
                                     Console.WriteLine("Сигнал привел вас к группе выживших, они поделились с вами провизией, награда увеличена\n");
                                     rew += 15;
+                                    Achievements.D++;
                                 }
                                 else
                                 {
@@ -301,6 +302,7 @@ internal class Long_Road
                             }
                             if (answz == 1)
                             {
+                                Achievements.C++;
                                 int ev = rnd.Next(1, 3);
                                 if (ev == 1)
                                 {
@@ -331,6 +333,7 @@ internal class Long_Road
                                 if (ev == 1)
                                 {
                                     Console.WriteLine("Вы нашли группу выживших, они поделились с вами провизией, награда увеличена\n");
+
                                     rew += 15;
                                 }
                                 else
@@ -349,8 +352,90 @@ internal class Long_Road
                     Thread.Sleep(2000);
                 }
                 Console.WriteLine($"Вы достигли склада, ваша награда {rew}\n");
+                achievement();
+                Achievements.A = Convert.ToByte(rew);
+                AchievementManager.Write(Achievements);
             }
-
+            static void achievement()
+            {
+                var Achievements = AchievementManager.Read();
+                //магнат
+                if (Achievements.A >= 150)
+                {
+                    Console.WriteLine("Достижение разблокировано: Магнат - Достигнуть награды в 150 или больше");
+                }
+                //боец
+                if (Achievements.B >= 3)
+                {
+                    Console.WriteLine("Достижение разблокировано: Боец - Отразить 3 или больше засад рейдеров");
+                }
+                //исследователь
+                if (Achievements.C >= 5)
+                {
+                    Console.WriteLine("Достижение разблокировано: Исследователь - Осмотреть 5 или больше заброшенных мест");
+                }
+                //лидер
+                if (Achievements.D >= 5)
+                {
+                    Console.WriteLine("Достижение разблокировано: Лидер - встретить 5 или больше групп выживших");
+                }
+                //милосердный
+                if (Achievements.E >= 3)
+                {
+                    Console.WriteLine("Достижение разблокировано: Милосердный - Помочь 3 или больше людям на пути");
+                }
+            }
         }
+    }
+}
+
+public class Achievements
+    {
+        public byte A { get; set; }
+        public byte B { get; set; }
+        public byte C { get; set; }
+        public byte D { get; set; }
+        public byte E { get; set; }
+    }
+public static class AchievementManager
+{
+    private static string file = "achievements.json";
+    
+    // Прочитать все значения
+    public static Achievements Read()
+    {
+        if (File.Exists(file))
+        {
+            string json = File.ReadAllText(file);
+            return JsonSerializer.Deserialize<Achievements>(json);
+        }
+        return new Achievements(); // Вернет все нули
+    }
+    
+    // Записать все значения
+    public static void Write(Achievements achievements)
+    {
+        string json = JsonSerializer.Serialize(achievements, new JsonSerializerOptions
+        {
+            WriteIndented = true
+        });
+        File.WriteAllText(file, json);
+    }
+    
+    // Изменить одну переменную
+    public static void Change(string variableName, byte newValue)
+    {
+        var achievements = Read();
+        
+        switch (variableName.ToUpper())
+        {
+            case "A": achievements.A = newValue; break;
+            case "B": achievements.B = newValue; break;
+            case "C": achievements.C = newValue; break;
+            case "D": achievements.D = newValue; break;
+            case "E": achievements.E = newValue; break;
+        }
+        
+        Write(achievements);
     }
 }
