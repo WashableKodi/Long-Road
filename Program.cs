@@ -28,8 +28,8 @@ internal class Long_Road
         {
             Console.WriteLine("1. Начать игру\n2. Выйти из игры\n3. информация об игре");
 
-            byte choice;
-            if (!byte.TryParse(Console.ReadLine(), out choice) || choice > 2 || choice < 1)
+            sbyte choice;
+            if (!sbyte.TryParse(Console.ReadLine(), out choice) || choice > 2 || choice < 1)
             {
                 choice = 2;     
             }
@@ -52,9 +52,9 @@ internal class Long_Road
             static void vibor()
             {
                 Console.WriteLine("Выберите маршрут:\n1.соседний лагерь:короткий, и мало оплачиваемый маршрут \n2.пригород:Дорога до пригорода займет больше времени, около 5 дней, но и награда будет больше \n3. бункер военных: Дорога до военного бункера займет около 7 дней, но и награда будет максимальная ");
-                byte dif;
-                byte days = 0;
-                if (!byte.TryParse(Console.ReadLine(), out dif) || dif > 3 || dif < 1)
+                sbyte dif;
+                sbyte days = 0;
+                if (!sbyte.TryParse(Console.ReadLine(), out dif) || dif > 3 || dif < 1)
                 {
                     dif = 2;
                 }
@@ -86,30 +86,30 @@ internal class Long_Road
                 Thread.Sleep(1000);
                 Console.WriteLine("Помните, всегда будьте осторожны!\n");
                 Thread.Sleep(1000);
-                byte rew = 100;
-                byte evch = 0;
-                for (byte day = 1; day <= dayz; day++)
+                short rew = 100;
+                sbyte evch = 0;
+                for (sbyte day = 1; day <= dayz; day++)
 
                 {
                     switch (dayz)
 
                     {
                         case 2:
-                            evch = Convert.ToByte(rnd.Next(1, 5));
+                            evch = Convert.ToSByte(rnd.Next(1, 5));
                             break;
                         case 5:
-                            evch = Convert.ToByte(rnd.Next(3, 7));
+                            evch = Convert.ToSByte(rnd.Next(3, 7));
                             break;
                         case 7:
-                            evch = Convert.ToByte(rnd.Next(5, 11));
+                            evch = Convert.ToSByte(rnd.Next(5, 11));
                             break;
                     }
                     switch (evch)
                     {
                         case 4:
                             Console.WriteLine("Найден пустой лагерь, осмотреть?\n1.Да\n2.Нет\n");
-                            byte ans;
-                            if (!byte.TryParse(Console.ReadLine(), out ans) || ans > 2 || ans < 0)
+                            sbyte ans;
+                            if (!sbyte.TryParse(Console.ReadLine(), out ans) || ans > 2 || ans < 0)
                             {
                                 ans = 1;
                             }
@@ -134,8 +134,8 @@ internal class Long_Road
                             break;
                         case 7:
                             Console.WriteLine("Вы слышите выстрелы, проверить?\n1.Да\n2.Нет\n");
-                            byte answ;
-                            if (!byte.TryParse(Console.ReadLine(), out answ) || answ > 2 || answ < 0)
+                            sbyte answ;
+                            if (!sbyte.TryParse(Console.ReadLine(), out answ) || answ > 2 || answ < 0)
                             {
                                 answ = 1;
                             }
@@ -160,14 +160,14 @@ internal class Long_Road
                             break;
                         case 2:
                             Console.WriteLine("Впереди густой туман, объехать?\n1.Да\n2.Нет\n");
-                            byte anse;
-                            if (!byte.TryParse(Console.ReadLine(), out anse) || anse > 2 || anse < 1)
+                            sbyte anse;
+                            if (!sbyte.TryParse(Console.ReadLine(), out anse) || anse > 2 || anse < 1)
                             {
                                 anse = 1;
                             }
                             if (anse == 2)
                             {
-                                byte e = Convert.ToByte(rnd.Next(1, 3));
+                                sbyte e = Convert.ToSByte(rnd.Next(1, 3));
                                 if (e == 1)
                                 {
                                     Console.WriteLine("В тумане ничего не было, и вы проехали без проблем\n");
@@ -185,8 +185,8 @@ internal class Long_Road
                             break;
                         case 5:
                             Console.WriteLine("Вы видите несколько раненых военных, помочь?\n1.Да\n2.Нет\n");
-                            byte ansr;
-                            if (!byte.TryParse(Console.ReadLine(), out ansr) || ansr > 2 || ansr < 1)
+                            sbyte ansr;
+                            if (!sbyte.TryParse(Console.ReadLine(), out ansr) || ansr > 2 || ansr < 1)
                             {
                                 ansr = 2;
                             }
@@ -211,8 +211,8 @@ internal class Long_Road
                             break;
                         case 9:
                             Console.WriteLine("Засада рейдеров! Дать отпор?\n1.Да\n2.Нет\n");
-                            byte an;
-                            if (!byte.TryParse(Console.ReadLine(), out an) || an > 2 || an < 1)
+                            sbyte an;
+                            if (!sbyte.TryParse(Console.ReadLine(), out an) || an > 2 || an < 1)
                             {
                                 an = 2;
                             }
@@ -239,8 +239,8 @@ internal class Long_Road
                             break;
                         case 3:
                             Console.WriteLine("Вы нашли заброшенный магазин, осмотреть?\n1.Да\n2.Нет\n");
-                            byte answq;
-                            if (!byte.TryParse(Console.ReadLine(), out answq) || answq > 2 || answq < 1)
+                            sbyte answq;
+                            if (!sbyte.TryParse(Console.ReadLine(), out answq) || answq > 2 || answq < 1)
                             {
                                 answq = 1;
                             }
@@ -265,8 +265,8 @@ internal class Long_Road
                             break;
                         case 6:
                             Console.WriteLine("Вы поймали странный сигнал по радио, последовать за сигалом? \n1.Да\n2.Нет\n");
-                            byte answe;
-                            if (!byte.TryParse(Console.ReadLine(), out answe) || answe > 2 || answe < 1) { }
+                            sbyte answe;
+                            if (!sbyte.TryParse(Console.ReadLine(), out answe) || answe > 2 || answe < 1) { }
                             {
                                 answe = 1;
                             }
@@ -294,8 +294,8 @@ internal class Long_Road
                             break;
                         case 10:
                             System.Console.WriteLine("Вы нашли военный бункер, осмотреть?\n1.Да\n2.Нет\n");
-                            byte answz;
-                            if (!byte.TryParse(Console.ReadLine(), out answz) || answz > 2 || answz < 1)
+                            sbyte answz;
+                            if (!sbyte.TryParse(Console.ReadLine(), out answz) || answz > 2 || answz < 1)
                             {
                                 answz = 1;
                             }
@@ -320,8 +320,8 @@ internal class Long_Road
                             break;
                         case 8:
                             System.Console.WriteLine("Вы увидели вдалеке дым, проверить?\n1.Да\n2.Нет\n");
-                            byte answqz;
-                            if (!byte.TryParse(Console.ReadLine(), out answqz) || answqz > 2 || answqz < 1)
+                            sbyte answqz;
+                            if (!sbyte.TryParse(Console.ReadLine(), out answqz) || answqz > 2 || answqz < 1)
                             {
                                 answqz = 1;
                             }
