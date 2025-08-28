@@ -10,25 +10,34 @@ using System.Linq.Expressions;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 using Microsoft.VisualBasic;
+using System.Threading;
 public static class After
 {
     public static bool gam = false;
 }
 
-internal class Long_Road
+public class Long_Road
 {
 
     static void Main()
     {
         Random rnd = new Random();
+        Reset();
         bool isRunning = true;
+        Console.Clear();
         while (isRunning)
 
         {
             Zagalovok();
-            Console.WriteLine("1. Начать игру\n2. Выйти из игры\n3. информация об игре \n4.Достижения");
             sbyte choice;
-            choice = Convert.ToSByte(Console.ReadLine());
+            Console.WriteLine("1. Начать игру\n2. Выйти из игры\n3. информация об игре \n4.Достижения");
+            if (!sbyte.TryParse(Console.ReadLine(), out choice) || choice > 4 || choice < 1)
+            {
+                System.Console.WriteLine("Неверный ввод, попробуйте снова.");
+                Console.Clear();
+                vibor();
+            }
+
             if (choice < 1 || choice > 4)
             {
                 System.Console.WriteLine("Неверный ввод, попробуйте снова.");
@@ -59,12 +68,14 @@ internal class Long_Road
 
             static void vibor()
             {
-                Console.WriteLine("Выберите маршрут:\n1.соседний лагерь: короткий, и мало оплачиваемый маршрут \n2.пригород: Дорога до пригорода займет больше времени, около 5 дней, но и награда будет больше \n3.бункер военных: Дорога до военного бункера займет около 7 дней, но и награда будет максимальная ");
+                Console.WriteLine("Выберите маршрут:\n1.соседний лагерь: короткий, и мало оплачиваемый маршрут \n2.пригород:Дорога до пригорода займет больше времени, около 5 дней, но и награда будет больше \n3.бункер военных: Дорога до военного бункера займет около 7 дней, но и награда будет большая.\n 4.деревня в горах: средней сложности маршрут на 4 дня, но с достаточно сложным путем\n5.Сектор 7: Сектор 7 - это главная лаборатория по исследованию вируса, расположенная в центре зараженной зоны. Дорога до Сектора 7 займет около 10 дней, но награда за доставку образцов вируса будет самой высокой. Однако, путь к Сектору 7 крайне опасен из-за высокой концентрации зараженных и нестабильной обстановки в зоне. Вы должны быть готовы к серьезным испытаниям и принимать обдуманные решения на каждом этапе пути.\n6.Назад");
                 sbyte dif;
                 sbyte days = 0;
-                if (!sbyte.TryParse(Console.ReadLine(), out dif) || dif > 3 || dif < 1)
+                if (!sbyte.TryParse(Console.ReadLine(), out dif) || dif > 4 || dif < 1)
                 {
-                    dif = 2;
+                    System.Console.WriteLine("Неверный ввод, попробуйте снова.");
+                    Console.Clear();
+                    vibor();
                 }
                 switch (dif)
                 {
@@ -80,6 +91,9 @@ internal class Long_Road
                     case 3:
                         Thread.Sleep(1000);
                         Game(7);
+                        break;
+                    case 4:
+                        Main();
                         break;
                 }
             }
@@ -128,11 +142,29 @@ internal class Long_Road
                 var Achievements = AchievementManager.Read();
                 Random rnd = new Random();
                 Thread.Sleep(1000);
+                int days = 0;
                 Console.WriteLine("Помните, всегда будьте осторожны!\n");
                 Thread.Sleep(1000);
+                switch (dayz) {
+                    case 2:
+                        days = 3;
+                        break;
+                    case 5:
+                        days = 5;
+                        break;
+                    case 7:
+                        days = 7;
+                        break;
+                    case 10:
+                        days = 10;
+                        break;
+                    case 4:
+                        days = 3;
+                        break;
+                }
 
                 short rew = 100;
-                sbyte evch = 0;
+                int[] evch = [];
                 sbyte med = 5;
                 sbyte food = 7;
                 sbyte ammo = 3;
@@ -140,22 +172,44 @@ internal class Long_Road
                 sbyte repair = 5;
                 sbyte money = 120;
 
-                for (sbyte day = 1; day <= dayz && rew > 0; day++)
+                for (sbyte day = 1; day <= days && rew > 0; day++)
                 {
                     switch (dayz)
                     {
                         case 2:
-                            evch = Convert.ToSByte(rnd.Next(1, 5));
+                            evch = [20, 20, 15, 10, 5, 5, 5, 3, 1, 0];
                             break;
                         case 5:
-                            evch = Convert.ToSByte(rnd.Next(3, 7));
+                            evch = [5, 5, 10, 10, 15, 10, 10, 5, 3, 1];
+                            rew = 150;
                             break;
                         case 7:
-                            evch = Convert.ToSByte(rnd.Next(5, 11));
+                            evch = [5, 0, 0, 5, 5, 10, 15, 20, 20, 15];
+                            rew = 200;
                             break;
+                        case 10:
+                            evch = [0, 0, 0, 0, 0, 0, 10, 25, 30, 30, 0, 0, 0];
+                            rew = 300;
+                            break;
+                        case 4:
+                            evch = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 50, 50];
+                            rew = 150;
+                            break;
+                        }
+                    int totall = evch.Sum();
+                    int rezz = 0;
+                    int randomValue = rnd.Next(1, totall + 1);
+                    int cumulativeSum = 0;
+                    for (int i = 0; i < evch.Length; i++)
+                    {
+                        cumulativeSum += evch[i];
+                        if (randomValue <= cumulativeSum)
+                        {
+                            rezz = i + 1;
+                            break;
+                        }
                     }
-
-                    switch (evch)
+                    switch (rezz)
                     {
                         case 1:
                             Console.WriteLine("День прошел спокойно, вы не встретили ничего необычного\n");
@@ -398,9 +452,10 @@ internal class Long_Road
                                 }
                                 else
                                 {
-                                    Console.WriteLine("Рейдеры оказались сильнее и помимо откупа вам пришлось отдать еще немного припасов\n");
+                                    Console.WriteLine("Рейдеры оказались сильнее и помимо выкупа украли у вас несколько единиц груза!\n");
                                     money -= 25;
                                     food -= 2;
+                                    rew -= 15;
                                 }
                             }
                             else
@@ -423,9 +478,10 @@ internal class Long_Road
                                 int ev = rnd.Next(1, 3);
                                 if (ev == 1)
                                 {
-                                    Console.WriteLine("В бункере вы нашли остатки снаряжения и медикаментов, награда увеличена\n");
+                                    Console.WriteLine("В бункере вы нашли остатки снаряжения и медикаментов, но также вы нашли образцы вируса, ценность груза увеличена\n");
                                     ammo += 5;
                                     med += 5;
+                                    rew += 20;
                                 }
                                 else
                                 {
@@ -438,13 +494,65 @@ internal class Long_Road
                                 Console.WriteLine("Вы проехали мимо бункера\n");
                             }
                             break;
-                    }
+                        case 11:
+                            Console.WriteLine("начинается сход снега, переждать?\n1.Да\n2.Нет\n");
+                            sbyte answzz;
+                            if (!sbyte.TryParse(Console.ReadLine(), out answzz) || answzz > 2 || answzz < 1)
+                            {
+                                answzz = 1;
+                            }
+                            if (answzz == 1)
+                            {
+                                Console.WriteLine("Вы переждали снег, но потеряли 2 дня\n");
+                                food -= 4;
+                                fuel -= 4;
+                                day += 2;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Вы поехали в снег и повредили транспорт\n");
+                                repair -= 3;
+                            }
+                            break;
+
+                        case 12:
+                            Console.WriteLine("Приближается стая волков, попытаться отогнать?\n1.Да\n2.Нет\n");
+                            sbyte answzzz;
+                            if (!sbyte.TryParse(Console.ReadLine(), out answzzz) || answzzz > 2 || answzzz < 1)
+                            {
+                                answzzz = 1;
+                            }
+                            if (answzzz == 1)
+                            {
+                                if (ammo >= cosb(2))
+                                {
+                                    Console.WriteLine("Вы отогнали волков, но потратили аммуницию\n");
+                                    ammo -= 2;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("У вас не было аммуниции, и волки напали на вас, часть еды потеряна\n");
+                                    food -= 5;
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Волки напали на вас, часть еды потеряна\n");
+                                food -= 5;
+                            }
+                            break;
+                        case 13:
+                            System.Console.WriteLine("");
+                            break;
+                        }
+                    
 
 
 
-                    if (med <= 0 || food <= 0 || fuel <= 0 || repair <= 0)
+                    if (food <= 0 || fuel <= 0 || repair <= 0)
                     {
                         Console.WriteLine("Вы не смогли продолжить путь из-за нехватки припасов. Игра окончена.\n");
+                        Thread.Sleep(900);
                         rew = 0;
                         break;
                     }
@@ -459,11 +567,11 @@ internal class Long_Road
 
                 if (rew > 0)
                 {
-                    rew += money;
+                    rew += Convert.ToInt16(money / 2);
                     Console.WriteLine($"Вы достигли цели, ваша награда {rew}\n");
                     After.gam = true;
 
-                    Achievements.A = Convert.ToByte(rew);
+                    Achievements.A = Convert.ToInt16(rew);
                     AchievementManager.Write(Achievements);
                     achievement();
                 }
@@ -480,6 +588,12 @@ internal class Long_Road
                 Console.WriteLine("███████╗╚██████╔╝██║ ╚████║╚██████╔╝    ██║  ██║╚██████╔╝██║  ██║██████╔╝");
                 Console.WriteLine("╚══════╝ ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═════╝ ");
             }
+            static int cosb(int num)
+            {
+               Convert.ToSByte(num);
+                return num;
+
+            }
 
 
 
@@ -487,11 +601,11 @@ internal class Long_Road
             {
                 var Achievements = AchievementManager.Read();
                 //магнат
-                if (Achievements.A >= 150)
+                if (Achievements.A >= 200)
                 {
                     if (!Achievements.AA && After.gam)
                     {
-                        Console.WriteLine("Достижение разблокировано: Магнат - Достигнуть награды в 150 или больше");
+                        Console.WriteLine("Достижение разблокировано: Магнат - Достигнуть награды в 200 или больше");
                     }
                     Achievements.AA = true;
                 }
@@ -546,14 +660,39 @@ internal class Long_Road
             }
         }
     }
+    
+            
+
+
+        public static void Reset()
+    {
+        {
+            var Achievements = AchievementManager.Read();
+            if (Achievements.A >= 10 && Achievements.B >= 10 && Achievements.C >= 10 && Achievements.D >= 10 && Achievements.E >= 10)
+            {
+                Achievements.A = 0;
+                Achievements.B = 0;
+                Achievements.C = 0;
+                Achievements.D = 0;
+                Achievements.E = 0;
+                Achievements.F = 0;
+                AchievementManager.Write(Achievements);
+            }
+        }
+    }
 }
+    
+      
+    
+    
+
 
 
 
 
     public class Achievements
-{
-    public byte A { get; set; }
+    {
+    public short A { get; set; }
     public byte B { get; set; }
     public byte C { get; set; }
     public byte D { get; set; }
@@ -566,51 +705,53 @@ internal class Long_Road
     public bool AE { get; set; }
     public bool AF { get; set; }
 
-}
-
-
-
-
-
-public static class AchievementManager
-{
-    private static string file = "achievements.json";
-
-    public static Achievements Read()
-    {
-        if (File.Exists(file))
-        {
-            string json = File.ReadAllText(file);
-            return JsonSerializer.Deserialize<Achievements>(json);
-        }
-        return new Achievements();
     }
 
 
-    public static void Write(Achievements achievements)
+
+
+
+    public static class AchievementManager
     {
-        string json = JsonSerializer.Serialize(achievements, new JsonSerializerOptions
+        private static string file = "achievements.json";
+
+        public static Achievements Read()
         {
-            WriteIndented = true
-        });
-        File.WriteAllText(file, json);
-    }
-
-
-    public static void Change(string variableName, byte newValue)
-    {
-        var achievements = Read();
-
-        switch (variableName.ToUpper())
-        {
-            case "A": achievements.A = newValue; break;
-            case "B": achievements.B = newValue; break;
-            case "C": achievements.C = newValue; break;
-            case "D": achievements.D = newValue; break;
-            case "E": achievements.E = newValue; break;
+            if (File.Exists(file))
+            {
+                string json = File.ReadAllText(file);
+                return JsonSerializer.Deserialize<Achievements>(json);
+            }
+            return new Achievements();
         }
 
-        Write(achievements);
-    }
+
+        public static void Write(Achievements achievements)
+        {
+            string json = JsonSerializer.Serialize(achievements, new JsonSerializerOptions
+            {
+                WriteIndented = true
+            });
+            File.WriteAllText(file, json);
+        }
+
+
+        public static void Change(string variableName, byte newValue)
+        {
+            var achievements = Read();
+
+            switch (variableName.ToUpper())
+            {
+                case "A": achievements.A = newValue; break;
+                case "B": achievements.B = newValue; break;
+                case "C": achievements.C = newValue; break;
+                case "D": achievements.D = newValue; break;
+                case "E": achievements.E = newValue; break;
+            }
+
+            Write(achievements);
+        }
 
     }
+
+
