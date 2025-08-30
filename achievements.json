@@ -1,14 +1,14 @@
 {
-  "A": 220,
+  "A": 0,
   "B": 0,
   "C": 0,
-  "D": 2,
+  "D": 0,
   "E": 0,
   "F": 0,
-  "AA": true,
+  "AA": false,
   "AB": false,
   "AC": false,
   "AD": false,
   "AE": false,
-  "AF": true
+  "AF": false
 }
