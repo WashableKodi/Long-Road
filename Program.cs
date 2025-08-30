@@ -198,11 +198,11 @@ public class Long_Road
                             rew = 200;
                             break;
                         case 10:
-                            evch = [0, 0, 0, 0, 0, 0, 10, 25, 30, 30, 0, 0, 0, 50];
+                            evch = [0, 0, 0, 0, 0, 0, 0, 15, 15, 15, 0, 0, 0, 50, 50, 50];
                             rew = 300;
                             break;
                         case 4:
-                            evch = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 50, 50];
+                            evch = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 50, 50, 0];
                             rew = 150;
                             break;
                     }
@@ -650,13 +650,36 @@ public class Long_Road
                                         int inrew = cosb(10) - money;
                                         System.Console.WriteLine($"На блокпосте генезиса у вас забрали {money} и {inrew} награды из за того что у вас не хватило монет и из-за вашец низкой репутации");
 
-
                                     }
                                     break;
                                 default:
-                                    System.Console.WriteLine("Из-за вашей высокой репутации у генезиса вас бесплатно пропустили у генезиса");
+                                    System.Console.WriteLine("Из-за вашей высокой репутации генезиса вас бесплатно пропустили на их блокпосте ");
                                     break;
+                              
+                                 }
+                            Thread.Sleep(500); 
+                            break;
+                        case 16:
+                            System.Console.WriteLine("Вы нашли группу генезиса, остановится?\n1.Да\n2.нет\n");
+                            if (Convert.ToInt16(Console.ReadLine()) == 1)
+                            {
+                                System.Console.WriteLine("эта опер. группа должна выследить группу рейдеров атакующих местные полевые центры, помочь?\n1.Да \n2.Нет\n");
+                                if (Convert.ToInt16(Console.ReadLine()) == 1)
+                                {
+                                    System.Console.WriteLine("Вы помогли зачистить лагерь рейдеров, репутация увеличена.");
+                                    Achievements.Grep += 3;
+                                    Achievements.Rrep -= 3;
+                                }
+                                else
+                                {
+                                    System.Console.WriteLine("Вы пожелали группе удачи и поехали дальше");
+                                }
                             }
+                            else
+                            {
+                                System.Console.WriteLine("Вы проехали мимо");
+                            }
+                            
                         break;
                     }
 
