@@ -328,6 +328,7 @@ public class Long_Road
                             if (ansr == 1)
                             {
                                 Achievements.E++;
+                                Achievements.Mrep += 2;
                                 int ve = rnd.Next(1, 3);
                                 if (ve == 1)
                                 {
@@ -632,7 +633,7 @@ public class Long_Road
                                     }
                                     else
                                     {
-                                        int inrew = cosb(20) - money;
+                                        int inrew = cosb(20) - money ;
                                         System.Console.WriteLine($"На блокпосте генезиса у вас забрали {money} и {inrew} награды из за того что у вас не хватило монет и из-за вашей низкой репутации");
 
 
