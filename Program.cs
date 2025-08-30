@@ -11,6 +11,8 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text.Json;
 using Microsoft.VisualBasic;
 using System.Threading;
+using System.Numerics;
+using System.Runtime.InteropServices;
 public static class After
 {
     public static bool gam = false;
@@ -203,7 +205,7 @@ public class Long_Road
                             evch = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 50, 50];
                             rew = 150;
                             break;
-                        }
+                    }
                     int totall = evch.Sum();
                     int rezz = 0;
                     int randomValue = rnd.Next(1, totall + 1);
@@ -550,7 +552,23 @@ public class Long_Road
                             }
                             break;
                         case 13:
-                            System.Console.WriteLine("");
+                            System.Console.WriteLine("Вы видите заброшенную гостиницу, заехать для осмотра?( -1 топливо)\n1. Да \n2. Нет\n");
+                            ans = Convert.ToSByte(Console.ReadLine());
+                            if (ans == 1)
+                            {
+                                fuel -= 1;
+                                int vari = rnd.Next(1, 3);
+                                if (vari == 1)
+                                {
+                                    System.Console.WriteLine("Вы нашли немного еды");
+                                    food += 2;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Вы ничего не нашли");
+                                }
+
+                            }
                             break;
                         }
                     
