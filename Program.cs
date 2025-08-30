@@ -198,7 +198,7 @@ public class Long_Road
                             rew = 200;
                             break;
                         case 10:
-                            evch = [0, 0, 0, 0, 0, 0, 10, 25, 30, 30, 0, 0, 0];
+                            evch = [0, 0, 0, 0, 0, 0, 10, 25, 30, 30, 0, 0, 0, 50];
                             rew = 300;
                             break;
                         case 4:
@@ -569,9 +569,97 @@ public class Long_Road
                                 }
 
                             }
+                            else
+                            {
+                                System.Console.WriteLine("Вы проехали гостиницу");
+                            }
                             break;
-                        }
-                    
+                        case 14:
+                            System.Console.WriteLine("Вы видите грузовик оперативников генезиса, осмотреть? \n1.Да \n2.нет \n");
+                            ans = Convert.ToSByte(Console.ReadLine());
+                            if (ans == 1)
+                            {
+                                int vari = rnd.Next(1, 3);
+                                if (vari == 1)
+                                {
+                                    if (med >= 2)
+                                    {
+                                        med -= 2;
+                                        Console.WriteLine("Вы нашли 1 раненого оперативника который рассказал о том что на их отряд напал опасный мутант.\n Вы помогли ему и он доехал с вами до ближайшего лагеря генезиса. Репутация Генезиса увеличена");
+                                        Achievements.Grep += 2;
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Вы нашли 1 раненого оперативника который рассказал о том что на их отряд напал опасный мутант.\n Вы смогли найти в грузовике медикаменты и помочь ему, потом он доехал с вами до ближайшего лагеря генезиса. Репутация Генезиса увеличена");
+                                        Achievements.Grep += 2;
+                                    }
+                                }
+                                else
+                                {
+                                    System.Console.WriteLine("Вы обнаружили только останки оперативников и следы одного опасного мутанта. Во избежание стречи с ним вы поскорее уехали.");
+                                }
+                            }
+
+                            else
+                            {
+                                System.Console.WriteLine("Вы проехали мимо");
+                            }
+                            break;
+                        case 15:
+                            switch (Achievements.Grep)
+                            {
+                                case 0 or 1:
+                                    if (money >= 30)
+                                    {
+                                        short monetki = 30;
+                                        System.Console.WriteLine($"На блокпосте генезиса из за того что у вас низкая репутация у вас взяли {monetki} монет за проход");
+                                        money -= 30;
+                                    }
+                                    else
+                                    {
+                                        int inrew = cosb(30) - money;
+                                        System.Console.WriteLine($"На блокпосте генезиса у вас забрали {money} и {inrew} награды из за того что у вас не хватило монет и из-за вашец низкой репутации");
+
+
+                                    }
+                                    break;
+                                case 2 or 3 or 4:
+                                    if (money >= 20)
+                                    {
+                                        short monetki = 20;
+                                        System.Console.WriteLine($"На блокпосте генезиса из за того что у вас низкая репутация у вас взяли {monetki} монет за проход");
+                                        money -= 20;
+                                    }
+                                    else
+                                    {
+                                        int inrew = cosb(20) - money;
+                                        System.Console.WriteLine($"На блокпосте генезиса у вас забрали {money} и {inrew} награды из за того что у вас не хватило монет и из-за вашей низкой репутации");
+
+
+                                    }
+                                    break;
+                                case 5 or 6 or 7:
+                                    if (money >= 10)
+                                    {
+                                        short monetki = 10;
+                                        System.Console.WriteLine($"На блокпосте генезиса из за того что у вас низкая репутация у вас взяли {monetki} монет за проход");
+                                        money -= 10;
+                                    }
+                                    else
+                                    {
+                                        int inrew = cosb(10) - money;
+                                        System.Console.WriteLine($"На блокпосте генезиса у вас забрали {money} и {inrew} награды из за того что у вас не хватило монет и из-за вашец низкой репутации");
+
+
+                                    }
+                                    break;
+                                default:
+                                    System.Console.WriteLine("Из-за вашей высокой репутации у генезиса вас бесплатно пропустили у генезиса");
+                                    break;
+                            }
+                        break;
+                    }
+
 
 
 
@@ -614,10 +702,9 @@ public class Long_Road
                 Console.WriteLine("███████╗╚██████╔╝██║ ╚████║╚██████╔╝    ██║  ██║╚██████╔╝██║  ██║██████╔╝");
                 Console.WriteLine("╚══════╝ ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═════╝ ");
             }
-            static int cosb(int num)
+            static sbyte cosb(int num)
             {
-               Convert.ToSByte(num);
-                return num;
+              return Convert.ToSByte(num);
 
             }
 
@@ -686,11 +773,11 @@ public class Long_Road
             }
         }
     }
-    
-            
 
 
-        public static void Reset()
+
+
+    public static void Reset()
     {
         {
             var Achievements = AchievementManager.Read();
@@ -707,17 +794,17 @@ public class Long_Road
         }
     }
 }
-    
-      
-    
-    
 
 
 
 
 
-    public class Achievements
-    {
+
+
+
+
+public class Achievements
+{
     public short A { get; set; }
     public byte B { get; set; }
     public byte C { get; set; }
@@ -730,8 +817,10 @@ public class Long_Road
     public bool AD { get; set; }
     public bool AE { get; set; }
     public bool AF { get; set; }
-
-    }
+    public byte Grep { get; set; }
+    public byte Mrep { get; set; }
+    public byte Rrep { get; set; }
+}
 
 
 
