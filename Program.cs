@@ -608,7 +608,7 @@ public class Long_Road
                         case 15:
                             switch (Achievements.Grep)
                             {
-                                case 0 or 1:
+                                case <=0:
                                     if (money >= 30)
                                     {
                                         short monetki = 30;
